@@ -42,7 +42,9 @@ public class CreateScene : MonoBehaviour
     void CreatePyramid()
     {
         GameObject stones = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        stones.GetComponent<Renderer>().material.color = new Color(1, 0.92f, 0.016f, 1);
         stones.transform.position = new Vector3(0, 0.5f, -2);
+
 
     }
 }
