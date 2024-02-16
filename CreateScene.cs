@@ -31,7 +31,8 @@ public class CreateScene : MonoBehaviour
     {
         GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ground.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 1);
-
+        ground.transform.localScale = new Vector3(3, 1, 3);
+        
     }
 
     void CreateRandomForest()
@@ -42,8 +43,9 @@ public class CreateScene : MonoBehaviour
         
         for (int treeNum = 2; treeNum <= sizeOfForest; treeNum++)
         {
-            GameObject forestTrees = Instantiate(trees, new Vector3(Random.Range(-5, 5), 1, Random.Range(1, 5)), Quaternion.identity);
-            
+            GameObject forestTrees = Instantiate(trees, new Vector3(Random.Range(-7, 7), 1, Random.Range(1, 7)), Quaternion.identity);
+            forestTrees.transform.localScale = new Vector3(Random.Range(0.5f, 2f), 1, Random.Range(0.2f, 1.3f));
+
             GameObject Forest = GameObject.Find("Forest");
             forestTrees.transform.parent = Forest.transform;
 
