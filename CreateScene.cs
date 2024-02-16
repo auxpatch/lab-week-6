@@ -32,6 +32,9 @@ public class CreateScene : MonoBehaviour
         GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ground.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 1);
         ground.transform.localScale = new Vector3(3, 1, 3);
+
+        GameObject Ground = GameObject.Find("Pyramid");
+        ground.transform.parent = Ground.transform;
         
     }
 
@@ -41,9 +44,9 @@ public class CreateScene : MonoBehaviour
         trees.GetComponent<Renderer>().material.color = new Color(0, 1, 0, 1);
         Destroy(trees);
         
-        for (int treeNum = 2; treeNum <= sizeOfForest; treeNum++)
+        for (int treeNum = 0; treeNum <= sizeOfForest; treeNum++)
         {
-            GameObject forestTrees = Instantiate(trees, new Vector3(Random.Range(-7, 7), 1, Random.Range(1, 7)), Quaternion.identity);
+            GameObject forestTrees = Instantiate(trees, new Vector3(Random.Range(-4, 4), Random.Range(0.2f, 1), Random.Range(1, 4)), Quaternion.identity);
             forestTrees.transform.localScale = new Vector3(Random.Range(0.5f, 2f), 1, Random.Range(0.2f, 1.3f));
 
             GameObject Forest = GameObject.Find("Forest");
@@ -56,8 +59,16 @@ public class CreateScene : MonoBehaviour
     {
         GameObject stones = GameObject.CreatePrimitive(PrimitiveType.Cube);
         stones.GetComponent<Renderer>().material.color = new Color(1, 0.92f, 0.016f, 1);
-        stones.transform.position = new Vector3(0, 0.5f, -2);
+        Destroy(stones);
 
+        for(int stoneNum = 0; stoneNum <= stonesRequired; stoneNum++)
+        {
+            GameObject pyramidStone = Instantiate(stones, new Vector3(-3, 0.5f, -3), Quaternion.identity);
+            pyramidStone.transform.localScale = new Vector3(1, 1, 1);
 
+            GameObject Pyramid = GameObject.Find("Pyramid");
+            pyramidStone.transform.parent = Pyramid.transform;
+
+        }
     }
 }
