@@ -10,6 +10,7 @@ public class CreateScene : MonoBehaviour
     public GameObject[] trees;
     public GameObject[] stones;
 
+
     void Start()
     {
         InitializeVariables();
@@ -36,7 +37,14 @@ public class CreateScene : MonoBehaviour
     {
         GameObject trees = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         trees.GetComponent<Renderer>().material.color = new Color(0, 1, 0, 1);
-        trees.transform.position = new Vector3(0, 1, 1);
+
+        for (int treeNum = 0; treeNum <= Random.Range(9, 15); treeNum++)
+        {
+            GameObject forestTrees = Instantiate(trees, new Vector3(Random.Range(1, 5), 1, Random.Range(1, 5)), Quaternion.identity) as GameObject;
+            GameObject Forest = GameObject.Find("Forest");
+            forestTrees.transform.parent = Forest.transform;
+
+        }
     }
 
     void CreatePyramid()
