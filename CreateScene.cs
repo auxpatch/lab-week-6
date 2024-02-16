@@ -31,16 +31,19 @@ public class CreateScene : MonoBehaviour
     {
         GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ground.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 1);
+
     }
 
     void CreateRandomForest()
     {
         GameObject trees = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         trees.GetComponent<Renderer>().material.color = new Color(0, 1, 0, 1);
-
-        for (int treeNum = 0; treeNum <= Random.Range(9, 15); treeNum++)
+        Destroy(trees);
+        
+        for (int treeNum = 2; treeNum <= sizeOfForest; treeNum++)
         {
-            GameObject forestTrees = Instantiate(trees, new Vector3(Random.Range(1, 5), 1, Random.Range(1, 5)), Quaternion.identity) as GameObject;
+            GameObject forestTrees = Instantiate(trees, new Vector3(Random.Range(-5, 5), 1, Random.Range(1, 5)), Quaternion.identity);
+            
             GameObject Forest = GameObject.Find("Forest");
             forestTrees.transform.parent = Forest.transform;
 
