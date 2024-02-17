@@ -7,6 +7,8 @@ public class CreateScene : MonoBehaviour
 {
     public int sizeOfForest;
     public int stonesRequired;
+    public float offset;
+
     public GameObject[] trees;
     public GameObject[] stones;
 
@@ -23,6 +25,7 @@ public class CreateScene : MonoBehaviour
     {
         sizeOfForest = 15;
         stonesRequired = 55;
+        offset = 0.25f;
         trees = new GameObject[sizeOfForest];
         stones = new GameObject[stonesRequired];
     }
@@ -33,7 +36,7 @@ public class CreateScene : MonoBehaviour
         ground.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 1);
         ground.transform.localScale = new Vector3(3, 1, 3);
 
-        GameObject Ground = GameObject.Find("Pyramid");
+        GameObject Ground = GameObject.Find("Ground");
         ground.transform.parent = Ground.transform;
         
     }
@@ -57,18 +60,20 @@ public class CreateScene : MonoBehaviour
 
     void CreatePyramid()
     {
-        GameObject stones = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        stones.GetComponent<Renderer>().material.color = new Color(1, 0.92f, 0.016f, 1);
-        Destroy(stones);
+        GameObject Pyramid = GameObject.Find("Pyramid");
 
-        for(int stoneNum = 0; stoneNum <= stonesRequired; stoneNum++)
+        for (int stoneY = 0; stoneY <= 5; stoneY++) // all layers
         {
-            GameObject pyramidStone = Instantiate(stones, new Vector3(-3, 0.5f, -3), Quaternion.identity);
-            pyramidStone.transform.localScale = new Vector3(1, 1, 1);
+            for (int stoneX = 0; stoneX <= 5*5; stoneX++) // xpos
+            {
+                for (int stoneZ = 0; stoneZ <= 5*5; stoneZ++) // zpos
+                {
+                    GameObject stone = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    stone.GetComponent<Renderer>().material.color = new Color(1, 0.92f, 0.016f, 1);
+                    stone.transform.position = new Vector3(stoneX, stoneY, stoneZ);
 
-            GameObject Pyramid = GameObject.Find("Pyramid");
-            pyramidStone.transform.parent = Pyramid.transform;
-
+                }
+            }
         }
     }
 }
