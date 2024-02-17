@@ -60,18 +60,18 @@ public class CreateScene : MonoBehaviour
 
     void CreatePyramid()
     {
-        GameObject Pyramid = GameObject.Find("Pyramid");
-
-        for (int stoneY = 0; stoneY <= 5; stoneY++) // all layers
+        int layers = 5;
+        for (int layer = 0; layer < layers; layer++)
         {
-            for (int stoneX = 0; stoneX <= 5*5; stoneX++) // xpos
+            for (int posX = 0; posX <= layer; posX++)
             {
-                for (int stoneZ = 0; stoneZ <= 5*5; stoneZ++) // zpos
+                for (int posZ = 0; posZ <= layer; posZ++)
                 {
-                    GameObject stone = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    stone.GetComponent<Renderer>().material.color = new Color(1, 0.92f, 0.016f, 1);
-                    stone.transform.position = new Vector3(stoneX, stoneY, stoneZ);
+                    Vector3 positionOffset = new Vector3(posX - layer / 2.0f, -layer, posZ - layer / 2.0f);
+                    GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    cube.transform.position = transform.position + positionOffset;
 
+                    cube.transform.parent = GameObject.Find("Pyramid").transform;
                 }
             }
         }
