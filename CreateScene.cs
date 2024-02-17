@@ -1,33 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class CreateScene : MonoBehaviour
 {
-    public int sizeOfForest;
-    public int stonesRequired;
-    public float offset;
-
-    public GameObject[] trees;
-    public GameObject[] stones;
+    [SerializeField] private int sizeOfForest;
+    [SerializeField] private int layers;
 
 
     void Start()
     {
-        InitializeVariables();
         CreateGround();
         CreateRandomForest();
         CreatePyramid();
-    }
-
-    void InitializeVariables()
-    {
-        sizeOfForest = 15;
-        stonesRequired = 55;
-        offset = 0.25f;
-        trees = new GameObject[sizeOfForest];
-        stones = new GameObject[stonesRequired];
     }
 
     void CreateGround()
@@ -38,7 +23,7 @@ public class CreateScene : MonoBehaviour
 
         GameObject Ground = GameObject.Find("Ground");
         ground.transform.parent = Ground.transform;
-        
+
     }
 
     void CreateRandomForest()
@@ -46,7 +31,7 @@ public class CreateScene : MonoBehaviour
         GameObject trees = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         trees.GetComponent<Renderer>().material.color = new Color(0, 1, 0, 1);
         Destroy(trees);
-        
+
         for (int treeNum = 0; treeNum <= sizeOfForest; treeNum++)
         {
             GameObject forestTrees = Instantiate(trees, new Vector3(Random.Range(-4, 4), Random.Range(0.2f, 1), Random.Range(1, 4)), Quaternion.identity);
@@ -60,7 +45,7 @@ public class CreateScene : MonoBehaviour
 
     void CreatePyramid()
     {
-        int layers = 5;
+
         for (int layer = 0; layer < layers; layer++)
         {
             for (int posX = 0; posX <= layer; posX++)
@@ -71,6 +56,7 @@ public class CreateScene : MonoBehaviour
                     GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     cube.transform.position = transform.position + positionOffset;
 
+                    cube.GetComponent<Renderer>().material.color = new Color((float)layer, (float)layer * 2, (float)layer * 3, 1);
                     cube.transform.parent = GameObject.Find("Pyramid").transform;
                 }
             }
